@@ -9,3 +9,7 @@ Feel free to use this if you see any merit in it, but be aware that this templat
 The project is structured into two main directories:
 - backend/: Contains the Python backend code. Uses FastAPI as the web framework, and Uvicorn as the ASGI server. Also relies on uv for dependency management.
 - frontend/: Contains the React frontend code. Uses Vite as the build tool, typescript and tailwindcss for styling.
+
+## Envs
+DEPLOYMENT_MODE:
+  if set to "docker" the backend will serve the react files. If not it will....not. During development they are treated as two different services that should be started individually. Vite then proxies requests to /api/* to the specified address (where the backend should be running). Make sure to change this proxy address if you run the backend on a different port!
