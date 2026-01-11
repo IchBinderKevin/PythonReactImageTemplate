@@ -30,4 +30,5 @@ COPY --from=frontend /frontend/dist ./dist
 
 EXPOSE 8000
 ENV DEPLOYMENT_MODE="docker"
+ENV PYTHONUNBUFFERED=1
 CMD ["uv", "run", "python", "src/main.py"]
