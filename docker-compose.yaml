@@ -1,0 +1,8 @@
+services:
+  pri_template:
+    build: .
+    container_name: "pri_template"
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./docker/data:/app/data

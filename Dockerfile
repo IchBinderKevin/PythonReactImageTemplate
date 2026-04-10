@@ -1,5 +1,5 @@
 # -------- frontend build --------
-FROM node:20-alpine AS frontend
+FROM node:24-alpine AS frontend
 
 WORKDIR /frontend
 
@@ -24,11 +24,25 @@ RUN uv sync --no-dev
 
 # copy backend source
 COPY backend/src ./src
+COPY backend/alembic.ini ./
 
 # copy built frontend
 COPY --from=frontend /frontend/dist ./dist
 
-EXPOSE 8000
+# copy entrypoint script
+COPY entrypoint.sh ./
+RUN chmod +x entrypoint.sh
+
+# create data directory
+RUN mkdir -p data
+
+# set environment variables
+ARG VERSION
+ENV APP_VERSION=$VERSION
+
 ENV DEPLOYMENT_MODE="docker"
 ENV PYTHONUNBUFFERED=1
-CMD ["uv", "run", "python", "src/main.py"]
+
+EXPOSE 3000
+
+CMD ["./entrypoint.sh"]

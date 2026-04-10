@@ -8,7 +8,7 @@ function App() {
   const [msg, setMsg] = useState("");
 
   useEffect(() => {
-    fetch("/api/test/apiTestRoute")
+    fetch("/api/example/list")
       .then((res) => res.json())
       .then((data) => setMsg(data.message))
       .catch((err) => console.error(err));
